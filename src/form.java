@@ -18,8 +18,9 @@ public class form extends JFrame{
     private JButton addButton;
     private JButton editButton;
     private JButton deleteButton;
+    private JButton backButton;
 
-    public Connection conn = connection.getConnection();
+    private Connection conn = connection.getConnection();
     PreparedStatement insert;
     String[] columnNames = {"Id Stock", "Nama Barang", "Quantity", "Harga"};
     public form() {
@@ -42,6 +43,14 @@ public class form extends JFrame{
         });
         deleteData();
         updateData();
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+                home callHome = new home();
+                callHome.setVisible(true);
+            }
+        });
     }
 
     private void deleteData() {
