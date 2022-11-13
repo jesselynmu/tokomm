@@ -7,6 +7,7 @@ public class connection {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost/tokomm","root","");
+            System.out.println("connect success");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 public class home extends JFrame{
@@ -11,5 +13,14 @@ public class home extends JFrame{
         setSize(300, 300);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
+
+        cekStockButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                form callForm = new form();
+                callForm.setVisible(true);
+                setVisible(false);
+            }
+        });
     }
 }
