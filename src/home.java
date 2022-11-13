@@ -22,5 +22,13 @@ public class home extends JFrame{
                 setVisible(false);
             }
         });
+        transaksiButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                transaksi callTransaksi = new transaksi();
+                callTransaksi.setVisible(true);
+                setVisible(false);
+            }
+        });
     }
 }
