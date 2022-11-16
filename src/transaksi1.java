@@ -161,8 +161,6 @@ public class transaksi1 extends JFrame {
 
         }
         else{
-
-
             taBill.setText(taBill.getText() + "\t" + "\t" + "Subtotal :" + total + "\n");
             taBill.setText(taBill.getText() + "\t" + "\t" + "Pay :" + pay + "\n");
             taBill.setText(taBill.getText() + "\t" + "\t" + "Balance :" + bal + "\n");
