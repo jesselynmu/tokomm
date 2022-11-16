@@ -25,7 +25,7 @@ public class home extends JFrame{
         transaksiButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                transaksi callTransaksi = new transaksi();
+                transaksi1 callTransaksi = new transaksi1();
                 callTransaksi.setVisible(true);
                 setVisible(false);
             }
