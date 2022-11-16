@@ -10,11 +10,15 @@ import java.util.List;
 public class transaksi1 extends JFrame {
     private JPanel panel1;
     private JTable jTable1;
-    private JButton button1;
     private JButton addButton;
-    private JButton doneButton;
+    private JButton backButton;
     private JComboBox dataSelect;
     private JSpinner tfQuantity;
+    private JTextField tfTotal;
+    private JTextField tfPay;
+    private JTextField tfBalance;
+    private JButton printBillButton;
+    private JTextArea taBill;
     private Connection conn = connection.getConnection();
     PreparedStatement insert;
 
@@ -49,8 +53,7 @@ public class transaksi1 extends JFrame {
                 harga.add(Double.valueOf(rsGetterHarga.get(0)));
             }
             dataSelect.setModel(new DefaultComboBoxModel<String>(namaBarang.toArray(new String[0])));
-            System.out.println(namaBarang);
-            System.out.println(harga);
+
 
 //            State Changed Select Box
 //            dataSelect.addItemListener(event -> {
@@ -74,6 +77,19 @@ public class transaksi1 extends JFrame {
                 jButton1ActionPerformed(e);
             }
         });
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+                home hOne = new home();
+            }
+        });
+        printBillButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                bill();
+            }
+        });
     }
     private int counter = 0;
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,61 +105,74 @@ public class transaksi1 extends JFrame {
                         Integer.parseInt(tfQuantity.getValue().toString()) * harga.get(dataSelect.getSelectedItem().equals(namaBarang) ? namaBarang.indexOf(dataSelect.getSelectedItem()) : 0),
                 });
 
-        int sum = 0;
+        double sum = 0;
 
-//        for(int i = 0; i<jTable1.getRowCount(); i++)
-//        {
-//            sum = sum + Integer.parseInt(jTable1.getValueAt(i, 4).toString());
-//        }
-        System.out.println(sum);
-//        txtotal.setText(Integer.toString(sum));
-        tfQuantity.setValue(1);
-//        txtpcode.setText("");
-//        txtpname.setText("");
-//        txtprice.setText("");
-//        txtamount.setText("");
-//        txtpcode.requestFocus();
+       for(int i = 0; i<jTable1.getRowCount(); i++)
+        {
+            sum = sum + Double.parseDouble(jTable1.getValueAt(i, 4).toString());
+       }
+
+        tfTotal.setText(Double.toString(sum));
+        tfQuantity.setValue(0);
+        taBill.setText("");
+        tfBalance.setText("");
+        dataSelect.setSelectedIndex(-1);
     }
 
 
-//    public void bill()
-//    {
-////        String total = txtotal.getText();
-////        String pay = txtpay.getText();
-////        String bal = txtbal.getText();
-//
-//        DefaultTableModel model = new DefaultTableModel();
-//
-//        model = (DefaultTableModel)jTable1.getModel();
-//
-//        txtbill.setText(txtbill.getText() + "******************************************************\n");
-//        txtbill.setText(txtbill.getText() + "           POSBILL                                     \n");
-//        txtbill.setText(txtbill.getText() + "*******************************************************\n");
-//
-//        //Heading
-//        txtbill.setText(txtbill.getText() + "Product" + "\t" + "Price" + "\t" + "Amount" + "\n"  );
-//
-//
-//        for(int i = 0; i < model.getRowCount(); i++)
-//        {
-//
-//            String pname = (String)model.getValueAt(i, 1);
-//            String price = (String)model.getValueAt(i, 3);
-//            String amount = (String)model.getValueAt(i, 4);
-//
-//            txtbill.setText(txtbill.getText() + pname  + "\t" + price + "\t" + amount  + "\n"  );
-//
-//        }
-//
-//        txtbill.setText(txtbill.getText() + "\n");
-//
-//        txtbill.setText(txtbill.getText() + "\t" + "\t" + "Subtotal :" + total + "\n");
-//        txtbill.setText(txtbill.getText() + "\t" + "\t" + "Pay :" + pay + "\n");
-//        txtbill.setText(txtbill.getText() + "\t" + "\t" + "Balance :" + bal + "\n");
-//        txtbill.setText(txtbill.getText() + "\n");
-//        txtbill.setText(txtbill.getText() + "*******************************************************\n");
-//        txtbill.setText(txtbill.getText() + "           THANK YOU COME AGIN             \n");
-//
-//
-//    }
+    public void bill()
+    {
+        String total = tfTotal.getText();
+        String pay = tfPay.getText();
+        String bal = tfBalance.getText();
+
+        DefaultTableModel model = new DefaultTableModel();
+
+        model = (DefaultTableModel)jTable1.getModel();
+
+
+
+        taBill.setText(taBill.getText() + "******************************************************\n");
+        taBill.setText(taBill.getText() + "          TOTAL BELANJA TOKO MAJU MUNDUR               \n");
+        taBill.setText(taBill.getText() + "*******************************************************\n");
+
+        //Heading
+        taBill.setText(taBill.getText() + "Product" + "\t" + "Price" + "\t" + "Amount" + "\n"  );
+        tfBalance.setText(bal);
+        for(int i = 0; i < model.getRowCount(); i++)
+        {
+
+            String pname = (String)model.getValueAt(i, 1);
+            String price = Double.toString((Double) model.getValueAt(i, 3));
+            String amount = Double.toString((Double) model.getValueAt(i, 4));
+
+
+
+            taBill.setText(taBill.getText() + pname  + "\t" + price + "\t" + amount  + "\n"  );
+
+        }
+
+        taBill.setText(taBill.getText() + "\n");
+        bal = String.valueOf(Double.parseDouble(tfPay.getText()) -Double.parseDouble(tfTotal.getText()));
+        if (Double.parseDouble(bal) < 0) {
+            JOptionPane.showMessageDialog(null,"INSUFFICIENT MONEY");
+            taBill.setText("");
+            tfPay.setText("");
+
+        }
+        else{
+
+
+            taBill.setText(taBill.getText() + "\t" + "\t" + "Subtotal :" + total + "\n");
+            taBill.setText(taBill.getText() + "\t" + "\t" + "Pay :" + pay + "\n");
+            taBill.setText(taBill.getText() + "\t" + "\t" + "Balance :" + bal + "\n");
+
+            taBill.setText(taBill.getText() + "\n");
+            taBill.setText(taBill.getText() + "*******************************************************\n");
+            taBill.setText(taBill.getText() + "           THANK YOU COME AGAIN             \n");
+        }
+
+
+
+    }
 }

@@ -7,6 +7,7 @@ public class home extends JFrame{
     private JButton transaksiButton;
     private JButton cekStockButton;
     private JPanel panelHome;
+    private JButton exitButton;
 
     public home() {
         setContentPane(panelHome);
@@ -28,6 +29,12 @@ public class home extends JFrame{
                 transaksi1 callTransaksi = new transaksi1();
                 callTransaksi.setVisible(true);
                 setVisible(false);
+            }
+        });
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
             }
         });
     }
