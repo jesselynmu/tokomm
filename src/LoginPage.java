@@ -8,8 +8,8 @@ public class LoginPage extends JFrame {
     private JPasswordField PasswordField;
     private JButton loginButton;
     private JLabel textFailed;
-    private String userCorrect [] = {"Alex","Brian","Nana","Tigreal"};
-    private String passCorrect[] = {"123123","3205","test123","aaaa"};
+    private String userCorrect [] = {"Alex","Brian","Nana","Tigreal","admin"};
+    private String passCorrect[] = {"123123","3205","test123","aaaa","admin"};
 
 
 
@@ -39,7 +39,7 @@ public class LoginPage extends JFrame {
 
     public LoginPage(){
         setContentPane(LoginPanel);
-        setSize(300,300);
+        setSize(400,400);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

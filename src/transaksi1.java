@@ -132,9 +132,9 @@ public class transaksi1 extends JFrame {
 
 
 
-        taBill.setText(taBill.getText() + "******************************************************\n");
-        taBill.setText(taBill.getText() + "          TOTAL BELANJA TOKO MAJU MUNDUR               \n");
-        taBill.setText(taBill.getText() + "*******************************************************\n");
+        taBill.setText(taBill.getText() + "********************************************************\n");
+        taBill.setText(taBill.getText() + "            TOTAL BELANJA TOKO MAJU MUNDUR              \n");
+        taBill.setText(taBill.getText() + "********************************************************\n");
 
         //Heading
         taBill.setText(taBill.getText() + "Product" + "\t" + "Price" + "\t" + "Amount" + "\n"  );
@@ -166,8 +166,8 @@ public class transaksi1 extends JFrame {
             taBill.setText(taBill.getText() + "\t" + "\t" + "Balance :" + bal + "\n");
 
             taBill.setText(taBill.getText() + "\n");
-            taBill.setText(taBill.getText() + "*******************************************************\n");
-            taBill.setText(taBill.getText() + "           THANK YOU COME AGAIN             \n");
+            taBill.setText(taBill.getText() + "********************************************************\n");
+            taBill.setText(taBill.getText() + "                   THANK YOU COME AGAIN                 \n");
         }
 
 
