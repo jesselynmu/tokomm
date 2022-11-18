@@ -8,11 +8,11 @@ public class LoginPage extends JFrame {
     private JPasswordField PasswordField;
     private JButton loginButton;
     private JLabel textFailed;
-    private String userCorrect [] = {"Alex","Brian","Nana","Tigreal"};
-    private String passCorrect[] = {"123123","3205","test123","aaaa"};
+    private static String[] userCorrect = {"Alex","Brian","Nana","Tigreal"};
+    private static String[] passCorrect = {"123123","3205","test123","aaaa"};
+    private String alamat[] = {"tytyan","kemang","cipete","mampang prpt"};
 
-
-
+    static Karyawan kLogin = new Karyawan();
 
     public static int isUserCorrect(String userInput, String[] userCorrect){
         for (int i = 0 ; i < userCorrect.length;i++){
@@ -33,6 +33,14 @@ public class LoginPage extends JFrame {
         }
         return 99;
     }
+
+    public static void setKaryawan(int uname, int upass) {
+        kLogin.setId(uname);
+        kLogin.setNama(userCorrect[uname]);
+        kLogin.setAlamat(passCorrect[uname]);
+    }
+
+
 
 
 
@@ -55,7 +63,8 @@ public class LoginPage extends JFrame {
 
                 if ( userCor == passCor){
                     setVisible(false);
-                    home panelHome = new home();
+                    home panelHome = new home(kLogin);
+                    setKaryawan(userCor, passCor);
 
                 }
                 else {

@@ -25,13 +25,15 @@ public class transaksi1 extends JFrame {
     private List<String> idBarang = new ArrayList<>();
     private List<String> namaBarang = new ArrayList<>();
     private List<Double> harga = new ArrayList<>();
+    private Karyawan dataKaryawan;
 
     String[] columnNames = {"Id Stock", "Nama Barang", "Quantity", "Harga", "Harga Total"};
-    public transaksi1() {
+    public transaksi1(Karyawan objKaryawan) {
         setContentPane(panel1);
         setSize(1280, 720);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
+        this.dataKaryawan = objKaryawan;
         int counter;
         try {
             insert = conn.prepareStatement("select * from stock");
@@ -81,7 +83,7 @@ public class transaksi1 extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
-                home hOne = new home();
+                home hOne = new home(dataKaryawan);
             }
         });
         printBillButton.addActionListener(new ActionListener() {
@@ -135,7 +137,7 @@ public class transaksi1 extends JFrame {
         taBill.setText(taBill.getText() + "******************************************************\n");
         taBill.setText(taBill.getText() + "          TOTAL BELANJA TOKO MAJU MUNDUR               \n");
         taBill.setText(taBill.getText() + "*******************************************************\n");
-
+        taBill.setText(taBill.getText() + "kasir : " + dataKaryawan.getNama() + "\n");
         //Heading
         taBill.setText(taBill.getText() + "Product" + "\t" + "Price" + "\t" + "Amount" + "\n"  );
         tfBalance.setText(bal);

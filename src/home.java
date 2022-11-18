@@ -8,17 +8,18 @@ public class home extends JFrame{
     private JButton cekStockButton;
     private JPanel panelHome;
     private JButton exitButton;
-
-    public home() {
+    private Karyawan dataKaryawan;
+    public home(Karyawan objKaryawan) {
         setContentPane(panelHome);
         setSize(300, 300);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
+        this.dataKaryawan = objKaryawan;
 
         cekStockButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                form callForm = new form();
+                form callForm = new form(dataKaryawan);
                 callForm.setVisible(true);
                 setVisible(false);
             }
@@ -26,7 +27,7 @@ public class home extends JFrame{
         transaksiButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                transaksi1 callTransaksi = new transaksi1();
+                transaksi1 callTransaksi = new transaksi1(dataKaryawan);
                 callTransaksi.setVisible(true);
                 setVisible(false);
             }
