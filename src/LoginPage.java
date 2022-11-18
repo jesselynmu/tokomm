@@ -47,7 +47,7 @@ public class LoginPage extends JFrame {
 
     public LoginPage(){
         setContentPane(LoginPanel);
-        setSize(300,300);
+        setSize(400,400);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
