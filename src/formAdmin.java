@@ -36,7 +36,9 @@ public class formAdmin extends JFrame {
         detailKaryawanButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                detailKaryawan dk = new detailKaryawan(dataUser);
+                dk.setVisible(true);
+                setVisible(false);
             }
         });
         logTransaksiButton.addActionListener(new ActionListener() {
