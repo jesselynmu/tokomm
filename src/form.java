@@ -46,9 +46,15 @@ public class form extends JFrame{
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-                home callHome = new home(objUser);
-                callHome.setVisible(true);
+                if(objUser.getuLevel() == 1) {
+                    setVisible(false);
+                    formAdmin fa = new formAdmin(objUser);
+                    fa.setVisible(true);
+                } else {
+                    setVisible(false);
+                    home hOne = new home(objUser);
+                    hOne.setVisible(true);
+                }
             }
         });
     }

@@ -6,7 +6,7 @@ public class home extends JFrame{
     private JButton transaksiButton;
     private JButton cekStockButton;
     private JPanel panelHome;
-    private JButton exitButton;
+    private JButton logout;
     private User dataUser;
     public home(User objUser) {
         setContentPane(panelHome);
@@ -31,10 +31,12 @@ public class home extends JFrame{
                 setVisible(false);
             }
         });
-        exitButton.addActionListener(new ActionListener() {
+        logout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                setVisible(false);
+                LoginPage lp = new LoginPage();
+                lp.setVisible(true);
             }
         });
     }

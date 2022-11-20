@@ -82,8 +82,13 @@ public class transaksi1 extends JFrame {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-                home hOne = new home(dataUser);
+                if(dataUser.getuLevel() == 1) {
+                    setVisible(false);
+                    formAdmin fa = new formAdmin(dataUser);
+                } else {
+                    setVisible(false);
+                    home hOne = new home(dataUser);
+                }
             }
         });
         printBillButton.addActionListener(new ActionListener() {

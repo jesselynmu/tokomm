@@ -12,20 +12,14 @@ public class LoginPage extends JFrame {
     private JButton loginButton;
     private JLabel textFailed;
     PreparedStatement get;
+    private List<Integer> idUser = new ArrayList<>();
     private List<String> uName = new ArrayList<>();
     private List<String> uPass = new ArrayList<>();
     private List<Integer> uLevel = new ArrayList<>();
 
     int counter;
 
-
-
     private Connection conn = connection.getConnection();
-    /*
-    
-    private static String[] userCorrect = {"Alex","Brian","Nana","Tigreal"};
-    private static String[] passCorrect = {"123123","3205","test123","aaaa"};
-    */
 
 
 
@@ -51,9 +45,10 @@ public class LoginPage extends JFrame {
         return 999989;
     }
 
-    public static void setKaryawan(int uname, int upass) {
-
-
+    public void setKaryawan(int id) {
+        kLogin.setId(idUser.get(id));
+        kLogin.setNama(uName.get(id));
+        kLogin.setuLevel(uLevel.get(id));
     }
 
 
@@ -79,17 +74,19 @@ public class LoginPage extends JFrame {
                     counter = rsmd.getColumnCount();
 
                     while (rs.next()) {
+                        List<Integer> rsGetterId = new ArrayList<>();
                         List<String> rsGetteruName = new ArrayList<>();
                         List<String> rsGetteruPass = new ArrayList<>();
                         List<Integer> rsGetteruLevel = new ArrayList<>();
                         for(int i = 1; i <= counter; i++) {
-
+                            rsGetterId.add(rs.getInt("id"));
                             rsGetteruName.add(rs.getString("nama"));
                             rsGetteruPass.add(rs.getString("password"));
                             rsGetteruLevel.add(rs.getInt("u_level"));
 
 
                         }
+                        idUser.add(Integer.valueOf(rsGetterId.get(0)));
                         uName.add(rsGetteruName.get(0));
                         uPass.add(rsGetteruPass.get(0));
                         uLevel.add(Integer.valueOf(rsGetteruLevel.get(0)));
@@ -106,15 +103,16 @@ public class LoginPage extends JFrame {
                 
                 if ( userCor == passCor){
                     if (uLevel.get(userCor) == 1){
+                        System.out.println("owner");
                         formAdmin fa = new formAdmin(kLogin);
                         setVisible(false);
-                        setKaryawan(userCor,passCor);
+                        setKaryawan(userCor);
 
                     }
                     else {
                         setVisible(false);
                         home panelHome = new home(kLogin);
-                        setKaryawan(userCor, passCor);
+                        setKaryawan(userCor);
                     }
 
 

@@ -40,12 +40,12 @@
           <text value="Transaksi"/>
         </properties>
       </component>
-      <component id="15be5" class="javax.swing.JButton" binding="exitButton" default-binding="true">
+      <component id="15be5" class="javax.swing.JButton" binding="logout">
         <constraints>
           <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Exit"/>
+          <text value="Log Out"/>
         </properties>
       </component>
       <component id="a4f4f" class="javax.swing.JButton" binding="logTransaksiButton" default-binding="true">

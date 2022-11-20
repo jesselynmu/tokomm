@@ -3,6 +3,8 @@ public class User {
     private int id;
     private String alamat;
 
+    private int uLevel;
+
     public User() {
         System.out.println("User Created!!");
     }
@@ -30,5 +32,13 @@ public class User {
 
     public void setAlamat(String alamat) {
         this.alamat = alamat;
+    }
+
+    public int getuLevel() {
+        return uLevel;
+    }
+
+    public void setuLevel(int uLevel) {
+        this.uLevel = uLevel;
     }
 }

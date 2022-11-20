@@ -6,7 +6,7 @@ public class formAdmin extends JFrame {
     private JButton detailKaryawanButton;
     private JButton cekStockButton;
     private JButton transaksiButton;
-    private JButton exitButton;
+    private JButton logout;
     private JButton logTransaksiButton;
     private JPanel jpanelAdmin;
     private User dataUser;
@@ -47,10 +47,12 @@ public class formAdmin extends JFrame {
 
             }
         });
-        exitButton.addActionListener(new ActionListener() {
+        logout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                setVisible(false);
+                LoginPage lp = new LoginPage();
+                lp.setVisible(true);
             }
         });
     }
