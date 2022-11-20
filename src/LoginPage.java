@@ -8,7 +8,7 @@ public class LoginPage extends JFrame {
     private JPasswordField PasswordField;
     private JButton loginButton;
     private JLabel textFailed;
-    private static String[] userLevel = {"Owner","Admin","Admin","Admin"};
+    private static int[] userLevel = {1,0,0,0};
     private static String[] userCorrect = {"Alex","Brian","Nana","Tigreal"};
     private static String[] passCorrect = {"123123","3205","test123","aaaa"};
     private String alamat[] = {"tytyan","kemang","cipete","mampang prpt"};
@@ -23,7 +23,7 @@ public class LoginPage extends JFrame {
             }
         }
 
-        return 0;
+        return 99999;
     }
 
     public static int isPassCorrect(String passInput, String[] passCorrect){
@@ -32,7 +32,7 @@ public class LoginPage extends JFrame {
                 return  i;
             }
         }
-        return 99;
+        return 999989;
     }
 
     public static void setKaryawan(int uname, int upass) {
@@ -63,9 +63,18 @@ public class LoginPage extends JFrame {
 
 
                 if ( userCor == passCor){
-                    setVisible(false);
-                    home panelHome = new home(kLogin);
-                    setKaryawan(userCor, passCor);
+                    if (userLevel[userCor] == 1){
+                        formAdmin fa = new formAdmin(kLogin);
+                        setVisible(false);
+                        setKaryawan(userCor,passCor);
+
+                    }
+                    else {
+                        setVisible(false);
+                        home panelHome = new home(kLogin);
+                        setKaryawan(userCor, passCor);
+                    }
+
 
                 }
                 else {
