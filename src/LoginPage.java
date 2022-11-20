@@ -1,6 +1,9 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginPage extends JFrame {
     private JPanel LoginPanel;
@@ -8,16 +11,29 @@ public class LoginPage extends JFrame {
     private JPasswordField PasswordField;
     private JButton loginButton;
     private JLabel textFailed;
-    private static int[] userLevel = {1,0,0,0};
+    PreparedStatement get;
+    private List<String> uName = new ArrayList<>();
+    private List<String> uPass = new ArrayList<>();
+    private List<Integer> uLevel = new ArrayList<>();
+
+    int counter;
+
+
+
+    private Connection conn = connection.getConnection();
+    /*
+    
     private static String[] userCorrect = {"Alex","Brian","Nana","Tigreal"};
     private static String[] passCorrect = {"123123","3205","test123","aaaa"};
-    private String alamat[] = {"tytyan","kemang","cipete","mampang prpt"};
+    */
+
+
 
     static User kLogin = new User();
 
-    public static int isUserCorrect(String userInput, String[] userCorrect){
-        for (int i = 0 ; i < userCorrect.length;i++){
-            if (userInput.equals(userCorrect[i])){
+    public static int isUserCorrect(String userInput, List<String> userCorrect){
+        for (int i = 0 ; i < userCorrect.size();i++){
+            if (userInput.equals(userCorrect.get(i))){
                return i;
 
             }
@@ -26,9 +42,9 @@ public class LoginPage extends JFrame {
         return 99999;
     }
 
-    public static int isPassCorrect(String passInput, String[] passCorrect){
-        for (int i = 0 ; i < passCorrect.length;i++){
-            if (passInput.equals(passCorrect[i])){
+    public static int isPassCorrect(String passInput, List<String> passCorrect){
+        for (int i = 0 ; i < passCorrect.size();i++){
+            if (passInput.equals(passCorrect.get(i))){
                 return  i;
             }
         }
@@ -36,9 +52,8 @@ public class LoginPage extends JFrame {
     }
 
     public static void setKaryawan(int uname, int upass) {
-        kLogin.setId(uname);
-        kLogin.setNama(userCorrect[uname]);
-        kLogin.setAlamat(passCorrect[uname]);
+
+
     }
 
 
@@ -57,13 +72,40 @@ public class LoginPage extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String user = UsernameField.getText();
                 String pass = PasswordField.getText();
-                int userCor = isUserCorrect(user,userCorrect);
-                int passCor = isPassCorrect(pass,passCorrect);
+                try{
+                    get = conn.prepareStatement("select * from user");
+                    ResultSet rs = get.executeQuery();
+                    ResultSetMetaData rsmd = rs.getMetaData();
+                    counter = rsmd.getColumnCount();
+
+                    while (rs.next()) {
+                        List<String> rsGetteruName = new ArrayList<>();
+                        List<String> rsGetteruPass = new ArrayList<>();
+                        List<Integer> rsGetteruLevel = new ArrayList<>();
+                        for(int i = 1; i <= counter; i++) {
+
+                            rsGetteruName.add(rs.getString("nama"));
+                            rsGetteruPass.add(rs.getString("password"));
+                            rsGetteruLevel.add(rs.getInt("u_level"));
 
 
+                        }
+                        uName.add(rsGetteruName.get(0));
+                        uPass.add(rsGetteruPass.get(0));
+                        uLevel.add(Integer.valueOf(rsGetteruLevel.get(0)));
+                    }
 
+                } catch (SQLException event){
+                    throw new RuntimeException(event);
+                }
+
+
+                int userCor = isUserCorrect(user,uName);
+                int passCor = isPassCorrect(pass,uPass);
+
+                
                 if ( userCor == passCor){
-                    if (userLevel[userCor] == 1){
+                    if (uLevel.get(userCor) == 1){
                         formAdmin fa = new formAdmin(kLogin);
                         setVisible(false);
                         setKaryawan(userCor,passCor);
@@ -80,6 +122,8 @@ public class LoginPage extends JFrame {
                 else {
                     textFailed.setText("PASSWORD OR USERNAME IS INCORRECT.");
                 }
+
+
 
             }
         });
