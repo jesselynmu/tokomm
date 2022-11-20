@@ -8,11 +8,12 @@ public class LoginPage extends JFrame {
     private JPasswordField PasswordField;
     private JButton loginButton;
     private JLabel textFailed;
+    private static String[] userLevel = {"Owner","Admin","Admin","Admin"};
     private static String[] userCorrect = {"Alex","Brian","Nana","Tigreal"};
     private static String[] passCorrect = {"123123","3205","test123","aaaa"};
     private String alamat[] = {"tytyan","kemang","cipete","mampang prpt"};
 
-    static Karyawan kLogin = new Karyawan();
+    static User kLogin = new User();
 
     public static int isUserCorrect(String userInput, String[] userCorrect){
         for (int i = 0 ; i < userCorrect.length;i++){

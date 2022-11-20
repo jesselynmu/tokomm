@@ -1,10 +1,10 @@
-public class Karyawan {
+public class User {
     private String nama;
     private int id;
     private String alamat;
 
-    public Karyawan() {
-        System.out.println("Karyawan Created!!");
+    public User() {
+        System.out.println("User Created!!");
     }
 
 

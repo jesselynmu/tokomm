@@ -23,7 +23,7 @@ public class form extends JFrame{
     private Connection conn = connection.getConnection();
     PreparedStatement insert;
     String[] columnNames = {"Id Stock", "Nama Barang", "Quantity", "Harga"};
-    public form(Karyawan objKaryawan) {
+    public form(User objUser) {
         setContentPane(panel1);
         setSize(1280, 720);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -47,7 +47,7 @@ public class form extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
-                home callHome = new home(objKaryawan);
+                home callHome = new home(objUser);
                 callHome.setVisible(true);
             }
         });
