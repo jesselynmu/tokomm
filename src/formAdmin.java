@@ -44,7 +44,9 @@ public class formAdmin extends JFrame {
         logTransaksiButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                setVisible(false);
+                LogTransaksi lp = new LogTransaksi(dataUser);
+                lp.setVisible(true);
             }
         });
         logout.addActionListener(new ActionListener() {
