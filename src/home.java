@@ -10,7 +10,7 @@ public class home extends JFrame{
     private User dataUser;
     public home(User objUser) {
         setContentPane(panelHome);
-        setSize(400, 400);
+        setSize(650, 550);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
         this.dataUser = objUser;

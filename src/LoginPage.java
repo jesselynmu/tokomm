@@ -51,14 +51,9 @@ public class LoginPage extends JFrame {
         kLogin.setuLevel(uLevel.get(id));
     }
 
-
-
-
-
-
     public LoginPage(){
         setContentPane(LoginPanel);
-        setSize(400,400);
+        setSize(650,550);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

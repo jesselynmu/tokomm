@@ -16,7 +16,9 @@
             <preferred-size width="150" height="50"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <font name="JetBrains Mono"/>
+        </properties>
       </component>
       <component id="2d9c3" class="javax.swing.JLabel">
         <constraints>

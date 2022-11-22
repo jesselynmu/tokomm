@@ -25,7 +25,7 @@ public class form extends JFrame{
     String[] columnNames = {"Id Stock", "Nama Barang", "Quantity", "Harga"};
     public form(User objUser) {
         setContentPane(panel1);
-        setSize(1280, 720);
+        setSize(1000, 550);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
         initComponents();

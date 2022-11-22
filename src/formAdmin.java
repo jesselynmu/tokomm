@@ -13,7 +13,7 @@ public class formAdmin extends JFrame {
 
     public formAdmin(User objUser) {
         setContentPane(jpanelAdmin);
-        setSize(400, 400);
+        setSize(650, 550);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
         this.dataUser = objUser;

@@ -34,7 +34,7 @@ public class transaksi1 extends JFrame {
     String[] columnNames = {"Id Stock", "Nama Barang", "Quantity", "Harga", "Harga Total"};
     public transaksi1(User objUser) {
         setContentPane(panel1);
-        setSize(1280, 720);
+        setSize(1000, 550);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
         this.dataUser = objUser;
