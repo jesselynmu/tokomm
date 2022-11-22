@@ -166,7 +166,7 @@
               <font name="JetBrains Mono" size="12" style="1"/>
               <foreground color="-1"/>
             </properties>
-            <border type="none"/>
+            <border type="bevel-raised" title-justification="2"/>
             <children>
               <component id="ae590" class="javax.swing.JTable" binding="table1" default-binding="true">
                 <constraints/>

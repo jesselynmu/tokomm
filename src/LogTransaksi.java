@@ -14,7 +14,7 @@ public class LogTransaksi extends JFrame{
     private Connection conn = connection.getConnection();
     PreparedStatement insert;
 
-    String[] columnNames = {"Id", "Nama Barang", "Quantity", "Harga Barang", "Total", "Admin", "Package"};
+    String[] columnNames = {"Id", "Nama Barang", "Quantity", "Harga Barang", "Total", "Admin", "Tanggal Perubahan"};
 
     public LogTransaksi(User objUser) {
         setContentPane(logPanel);
@@ -58,7 +58,7 @@ public class LogTransaksi extends JFrame{
                     vector.add(String.valueOf(rs.getInt("quantity")));
                     vector.add(String.valueOf(rs.getInt("harga_barang")));
                     vector.add(String.valueOf(rs.getInt("total_harga_per_barang")));
-                    vector.add(String.valueOf(rs.getInt("admin")));
+                    vector.add(rs.getString("admin"));
                     vector.add(rs.getString("createdAt"));
                 }
                 tblModel.addRow(vector);
