@@ -101,8 +101,6 @@ public class form extends JFrame{
                     String namaSembako = tfNama.getText();
                     int quantitySembako = Integer.parseInt(tfQuantity.getText());
                     double hargaSembako = Double.parseDouble(tfHarga.getText());
-
-                    connection.getConnection();
                     insert = conn.prepareStatement("update stock set namabarang=?,quantity=?,harga=? where idstock=?");
                     insert.setString(1, namaSembako);
                     insert.setInt(2,quantitySembako);

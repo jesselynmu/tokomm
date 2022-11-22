@@ -5,7 +5,8 @@ import java.awt.event.ActionListener;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class transaksi1 extends JFrame {
     private JPanel panel1;
@@ -25,8 +26,11 @@ public class transaksi1 extends JFrame {
     private List<String> idBarang = new ArrayList<>();
     private List<String> namaBarang = new ArrayList<>();
     private List<Double> harga = new ArrayList<>();
+    private List<Integer> quantity = new ArrayList<>();
     private User dataUser;
 
+    private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private Date date = new Date();
     String[] columnNames = {"Id Stock", "Nama Barang", "Quantity", "Harga", "Harga Total"};
     public transaksi1(User objUser) {
         setContentPane(panel1);
@@ -45,30 +49,20 @@ public class transaksi1 extends JFrame {
                 List<String> rsGetter = new ArrayList<>();
                 List<String> rsGetterId = new ArrayList<>();
                 List<String> rsGetterHarga = new ArrayList<>();
+                List<String> rsGetterQuantity = new ArrayList<>();
                 for(int i = 1; i <= counter; i++) {
                     rsGetter.add(rs.getString("namabarang"));
                     rsGetterId.add(rs.getString("idstock"));
                     rsGetterHarga.add(rs.getString("harga"));
+                    rsGetterQuantity.add(rs.getString("quantity"));
+
                 }
                 namaBarang.add(rsGetter.get(0));
                 idBarang.add(rsGetterId.get(0));
                 harga.add(Double.valueOf(rsGetterHarga.get(0)));
+                quantity.add(Integer.valueOf(rsGetterQuantity.get(0)));
             }
             dataSelect.setModel(new DefaultComboBoxModel<String>(namaBarang.toArray(new String[0])));
-
-
-//            State Changed Select Box
-//            dataSelect.addItemListener(event -> {
-//                // The item affected by the event.
-//                String item = (String) event.getItem();
-//                textPane1.setText("Affected items: " + item + "\n");
-//                if (event.getStateChange() == ItemEvent.SELECTED) {
-//                    textPane1.setText(item + " selected\n");
-//                }
-//                if (event.getStateChange() == ItemEvent.DESELECTED) {
-//                    textPane1.setText(item + " deselected\n");
-//                }
-//            });
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -94,7 +88,11 @@ public class transaksi1 extends JFrame {
         printBillButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                bill();
+                try {
+                    bill();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
     }
@@ -127,16 +125,14 @@ public class transaksi1 extends JFrame {
     }
 
 
-    public void bill()
-    {
+    public void bill() throws SQLException {
         String total = tfTotal.getText();
         String pay = tfPay.getText();
         String bal = tfBalance.getText();
 
         DefaultTableModel model = new DefaultTableModel();
 
-        model = (DefaultTableModel)jTable1.getModel();
-
+        model = (DefaultTableModel) jTable1.getModel();
 
 
         taBill.setText(taBill.getText() + "******************************************************\n");
@@ -144,30 +140,27 @@ public class transaksi1 extends JFrame {
         taBill.setText(taBill.getText() + "*******************************************************\n");
         taBill.setText(taBill.getText() + "kasir : " + dataUser.getNama() + "\n");
         //Heading
-        taBill.setText(taBill.getText() + "Product" + "\t" + "Price" + "\t" + "Amount" + "\n"  );
+        taBill.setText(taBill.getText() + "Product" + "\t" + "Price" + "\t" + "Amount" + "\n");
         tfBalance.setText(bal);
-        for(int i = 0; i < model.getRowCount(); i++)
-        {
+        for (int i = 0; i < model.getRowCount(); i++) {
 
-            String pname = (String)model.getValueAt(i, 1);
+            String pname = (String) model.getValueAt(i, 1);
             String price = Double.toString((Double) model.getValueAt(i, 3));
             String amount = Double.toString((Double) model.getValueAt(i, 4));
 
 
-
-            taBill.setText(taBill.getText() + pname  + "\t" + price + "\t" + amount  + "\n"  );
+            taBill.setText(taBill.getText() + pname + "\t" + price + "\t" + amount + "\n");
 
         }
 
         taBill.setText(taBill.getText() + "\n");
-        bal = String.valueOf(Double.parseDouble(tfPay.getText()) -Double.parseDouble(tfTotal.getText()));
+        bal = String.valueOf(Double.parseDouble(tfPay.getText()) - Double.parseDouble(tfTotal.getText()));
         if (Double.parseDouble(bal) < 0) {
-            JOptionPane.showMessageDialog(null,"INSUFFICIENT MONEY");
+            JOptionPane.showMessageDialog(null, "INSUFFICIENT MONEY");
             taBill.setText("");
             tfPay.setText("");
 
-        }
-        else{
+        } else {
             taBill.setText(taBill.getText() + "\t" + "\t" + "Subtotal :" + total + "\n");
             taBill.setText(taBill.getText() + "\t" + "\t" + "Pay :" + pay + "\n");
             taBill.setText(taBill.getText() + "\t" + "\t" + "Balance :" + bal + "\n");
@@ -175,9 +168,39 @@ public class transaksi1 extends JFrame {
             taBill.setText(taBill.getText() + "\n");
             taBill.setText(taBill.getText() + "*******************************************************\n");
             taBill.setText(taBill.getText() + "           THANK YOU COME AGAIN             \n");
-        }
 
+            if (model.getRowCount() == 1) {
+                insert = conn.prepareStatement("insert into log_transaksi(nama_barang, quantity, harga_barang, total_harga_per_barang, admin, createdAt)values(?,?,?,?,?,?)");
+                insert.setString(1, (String) model.getValueAt(0, 1));
+                insert.setInt(2, Integer.parseInt((String) model.getValueAt(0, 2)));
+                insert.setDouble(3, (Double) model.getValueAt(0, 3));
+                insert.setDouble(4, (Double) model.getValueAt(0, 4));
+                insert.setInt(5, dataUser.getId());
+                insert.setString(6, formatter.format(date));
+                insert.executeUpdate();
+                reduceStock(Integer.parseInt((String) model.getValueAt(0, 2)), model.getValueAt(0, 1));
+            } else {
+                for (int i = 0; i < model.getRowCount(); i++) {
+                    insert = conn.prepareStatement("insert into log_transaksi(nama_barang, quantity, harga_barang, total_harga_per_barang, admin, createdAt)values(?,?,?,?,?,?)");
+                    insert.setString(1, (String) model.getValueAt(i, 1));
+                    insert.setInt(2, Integer.parseInt((String) model.getValueAt(i, 2)));
+                    insert.setDouble(3, (Double) model.getValueAt(i, 3));
+                    insert.setDouble(4, (Double) model.getValueAt(i, 4));
+                    insert.setInt(5, dataUser.getId());
+                    insert.setString(6, formatter.format(date));
+                    insert.executeUpdate();
+                    reduceStock(Integer.parseInt((String) model.getValueAt(i, 2)), model.getValueAt(i, 1));
+                }
+            }
+        }
+    }
+
+    public void reduceStock(int quantityReduce, Object valueAt) throws SQLException {
+        insert = conn.prepareStatement("update stock set quantity=? where idstock=?");
+        insert.setInt(1, quantity.get(namaBarang.indexOf(valueAt)) - quantityReduce);
+        insert.setInt(2, Integer.parseInt(idBarang.get(namaBarang.indexOf(valueAt))));
+        insert.executeUpdate();
+    }
 
 
     }
-}
