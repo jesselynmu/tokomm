@@ -15,10 +15,8 @@ public class transaksi1 extends JFrame {
     private JButton addButton;
     private JButton backButton;
     private JComboBox dataSelect;
-
     SpinnerNumberModel disScroll = new SpinnerNumberModel(0,0,10000,1);
     private JSpinner tfQuantity;
-
     private JTextField tfTotal;
     private JTextField tfPay;
     private JTextField tfBalance;
@@ -124,7 +122,6 @@ public class transaksi1 extends JFrame {
         dataSelect.setSelectedIndex(-1);
     }
 
-
     public void bill() throws SQLException {
         String total = tfTotal.getText();
         String pay = tfPay.getText();
@@ -210,8 +207,5 @@ public class transaksi1 extends JFrame {
             insert.setInt(2, Integer.parseInt(idBarang.get(namaBarang.indexOf(valueAt))));
             insert.executeUpdate();
         }
-
     }
-
-
-    }
+}

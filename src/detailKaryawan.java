@@ -115,7 +115,6 @@ public class detailKaryawan extends JFrame{
                 }
             }
         });
-
     }
     private void table() {
         int counter;

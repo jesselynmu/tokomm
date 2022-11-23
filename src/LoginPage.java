@@ -16,13 +16,8 @@ public class LoginPage extends JFrame {
     private List<String> uName = new ArrayList<>();
     private List<String> uPass = new ArrayList<>();
     private List<Integer> uLevel = new ArrayList<>();
-
     int counter;
-
     private Connection conn = connection.getConnection();
-
-
-
     static User kLogin = null;
 
     public static int isUserCorrect(String userInput, List<String> userCorrect){
@@ -91,11 +86,9 @@ public class LoginPage extends JFrame {
                     throw new RuntimeException(event);
                 }
 
-
                 int userCor = isUserCorrect(user,uName);
                 int passCor = isPassCorrect(pass,uPass);
 
-                
                 if ( userCor == passCor){
                     if (uLevel.get(userCor) == 1){
                         kLogin = new Owner();
@@ -104,7 +97,6 @@ public class LoginPage extends JFrame {
                             formAdmin fa = new formAdmin(kLogin);
                             setVisible(false);
                         }
-
                     }
                     else {
                         kLogin = new Admin();
@@ -114,17 +106,11 @@ public class LoginPage extends JFrame {
                             setVisible(false);
                         }
                     }
-
-
                 }
                 else {
                     textFailed.setText("PASSWORD OR USERNAME IS INCORRECT.");
                 }
-
-
-
             }
         });
     }
-
 }

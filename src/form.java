@@ -119,7 +119,6 @@ public class form extends JFrame{
                 }
             }
         });
-
     }
     private void table() {
         int counter;
