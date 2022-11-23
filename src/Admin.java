@@ -3,4 +3,8 @@ public class Admin extends User{
         System.out.println("Admin Created!!");
     }
 
+    @Override
+    public String toString() {
+        return "Selamat Datang Admin " +  this.getNama();
+    }
 }

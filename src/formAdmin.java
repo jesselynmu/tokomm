@@ -9,6 +9,7 @@ public class formAdmin extends JFrame {
     private JButton logout;
     private JButton logTransaksiButton;
     private JPanel jpanelAdmin;
+    private JLabel welcome;
     private User dataUser;
 
     public formAdmin(User objUser) {
@@ -17,6 +18,7 @@ public class formAdmin extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
         this.dataUser = objUser;
+        welcome.setText(objUser.toString());
         transaksiButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -171,7 +171,6 @@ public class transaksi1 extends JFrame {
             taBill.setText(taBill.getText() + "\n");
             taBill.setText(taBill.getText() + "  *******************************************************\n");
             taBill.setText(taBill.getText() + "             THANK YOU COME AGAIN             \n");
-            model.setRowCount(0);
 
             if (model.getRowCount() == 1) {
                 insert = conn.prepareStatement("insert into log_transaksi(nama_barang, quantity, harga_barang, total_harga_per_barang, admin, createdAt)values(?,?,?,?,?,?)");
@@ -183,6 +182,7 @@ public class transaksi1 extends JFrame {
                 insert.setString(6, formatter.format(date));
                 insert.executeUpdate();
                 reduceStock(Integer.parseInt((String) model.getValueAt(0, 2)), model.getValueAt(0, 1));
+                model.setRowCount(0);
             } else {
                 for (int i = 0; i < model.getRowCount(); i++) {
                     insert = conn.prepareStatement("insert into log_transaksi(nama_barang, quantity, harga_barang, total_harga_per_barang, admin, createdAt)values(?,?,?,?,?,?)");
@@ -195,6 +195,7 @@ public class transaksi1 extends JFrame {
                     insert.executeUpdate();
                     reduceStock(Integer.parseInt((String) model.getValueAt(i, 2)), model.getValueAt(i, 1));
                 }
+                model.setRowCount(0);
             }
         }
     }

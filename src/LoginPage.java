@@ -23,7 +23,7 @@ public class LoginPage extends JFrame {
 
 
 
-    static User kLogin = new User();
+    static User kLogin = null;
 
     public static int isUserCorrect(String userInput, List<String> userCorrect){
         for (int i = 0 ; i < userCorrect.size();i++){
@@ -98,16 +98,21 @@ public class LoginPage extends JFrame {
                 
                 if ( userCor == passCor){
                     if (uLevel.get(userCor) == 1){
-                        System.out.println("owner");
-                        formAdmin fa = new formAdmin(kLogin);
-                        setVisible(false);
-                        setKaryawan(userCor);
+                        kLogin = new Owner();
+                        if(kLogin != null) {
+                            setKaryawan(userCor);
+                            formAdmin fa = new formAdmin(kLogin);
+                            setVisible(false);
+                        }
 
                     }
                     else {
-                        setVisible(false);
-                        home panelHome = new home(kLogin);
-                        setKaryawan(userCor);
+                        kLogin = new Admin();
+                        if(kLogin != null) {
+                            setKaryawan(userCor);
+                            home panelHome = new home(kLogin);
+                            setVisible(false);
+                        }
                     }
 
 

@@ -7,6 +7,7 @@ public class home extends JFrame{
     private JButton cekStockButton;
     private JPanel panelHome;
     private JButton logout;
+    private JLabel welcome;
     private User dataUser;
     public home(User objUser) {
         setContentPane(panelHome);
@@ -15,6 +16,7 @@ public class home extends JFrame{
         setVisible(true);
         this.dataUser = objUser;
 
+        welcome.setText(objUser.toString());
         cekStockButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
