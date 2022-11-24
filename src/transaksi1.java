@@ -104,8 +104,8 @@ public class transaksi1 extends JFrame {
                         counter += 1,
                         dataSelect.getSelectedItem(),
                         tfQuantity.getValue().toString(),
-                        harga.get(Objects.equals(dataSelect.getSelectedItem(), namaBarang) ? namaBarang.indexOf(dataSelect.getSelectedItem()) : 0),
-                        Integer.parseInt(tfQuantity.getValue().toString()) * harga.get(Objects.equals(dataSelect.getSelectedItem(), namaBarang) ? namaBarang.indexOf(dataSelect.getSelectedItem()) : 0),
+                        harga.get(namaBarang.indexOf(dataSelect.getSelectedItem())),
+                        Integer.parseInt(tfQuantity.getValue().toString()) * harga.get(namaBarang.indexOf(dataSelect.getSelectedItem())),
                 });
 
         double sum = 0;

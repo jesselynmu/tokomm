@@ -53,6 +53,7 @@ public class detailKaryawan extends JFrame{
             }
         });
     }
+
     private void deleteData() {
         deleteButton.addActionListener(new ActionListener() {
             @Override
@@ -116,6 +117,7 @@ public class detailKaryawan extends JFrame{
             }
         });
     }
+
     private void table() {
         int counter;
         try {
